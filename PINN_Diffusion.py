@@ -266,7 +266,6 @@ if __name__ == "__main__":
     
     X_star = np.hstack((X.flatten()[:,None], T.flatten()[:,None]))
     u_star = Exact_u.T.flatten()[:,None]
-    h_star = Exact_h.T.flatten()[:,None]
     
     ###########################
     
@@ -311,7 +310,7 @@ if __name__ == "__main__":
     plt.plot(x,Exact_u[:,i], linewidth = 2,label = 'Exact')       
     plt.plot(x,U_pred[i,:], 'r', linewidth = 2, label = 'Prediction')
     plt.xlabel('x')
-    plt.ylabel('h(t,x)')
+    plt.ylabel('T(t,x)')
     plt.legend(loc='upper center')
     plt.show()      
      
