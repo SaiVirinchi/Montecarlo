@@ -40,7 +40,6 @@ class PhysicsInformedNN:
         self.weights, self.biases = self.initialize_NN(layers)
         
         # tf Placeholders        
-        print(self.v0.shape[0],"lol",np.shape(u0))
 
         self.x0_tf = tf.placeholder(tf.float32, shape=[None, self.x0.shape[1]])
 
@@ -54,9 +53,7 @@ class PhysicsInformedNN:
         self.saver = tf.train.Saver()
 
         # tf Graphs
-        print("1")
         self.u0_pred, self.v0_pred, _ , _ = self.net_uv(self.x0_tf)
-        print("2")
         self.f_u_pred, self.f_v_pred = self.net_f_uv(self.x_f_tf)
         
         # Loss
@@ -93,14 +90,11 @@ class PhysicsInformedNN:
         weights = []
         biases = []
         num_layers = len(layers) 
-        vee= 0
         for l in range(0,num_layers-1):
             W = self.xavier_init(size=[layers[l], layers[l+1]])
             b = tf.Variable(tf.zeros([1,layers[l+1]], dtype=tf.float32), dtype=tf.float32)
             weights.append(W)
             biases.append(b)  
-            vee = vee +1
-            print(np.shape(weights[l]),np.shape(biases[l]),"lmao",vee)      
         return weights, biases
         
     def xavier_init(self, size):
@@ -116,7 +110,6 @@ class PhysicsInformedNN:
         for l in range(0,num_layers-2):
             W = weights[l]
             b = biases[l]
-            print(np.shape(W),np.shape(b),"WbH",l,np.shape(H))
             H = tf.tanh(tf.add(tf.matmul(H, W), b))
         W = weights[-1]
         b = biases[-1]
